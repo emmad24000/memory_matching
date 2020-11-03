@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guessing Game</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+    <img src="apple.jpeg" id="apple">
+    <img src="pear.jpeg" id="pear">
+    <img src="grapes.jpeg" id="grapes">
+    <img src="orange.jpeg" id="orange">
+    <img src = "yams.jpeg" id="yams">
+    <img src="carrot.jpeg" id="carrot">
+     <img src="download.jpeg" id="11" onclick="onClick(this)">
+     <img src="download.jpeg" id="12" onclick="onClick(this)">
+     <img src="download.jpeg" id="13" onclick="onClick(this)">
+
+     <img src="download.jpeg" id="21" onclick="onClick(this)">
+     <img src="download.jpeg" id="22" onclick="onClick(this)">
+     <img src="download.jpeg" id="23" onclick="onClick(this)">
+
+     <img src="download.jpeg" id="31" onclick="onClick(this)">
+     <img src="download.jpeg" id="32" onclick="onClick(this)">
+     <img src="download.jpeg" id="33" onclick="onClick(this)">
+
+     <img src="download.jpeg" id="41" onclick="onClick(this)">
+     <img src="download.jpeg" id="42" onclick="onClick(this)">
+     <img src="download.jpeg" id="43" onclick="onClick(this)">
+
+
+    </div>
+    <h1>Matches: </h1>
+    <h1 id="matches">0</h1>
+    <h1>Misses:</h1>
+    <h1 id="misses">0</h1>
+<script>
+        var words = ["Apple","Apple","Pear","Pear","Grapes","Grapes","Orange","Orange","Yam","Yam","Carrot","Carrot"];
+        var checkOne;
+        var checkTwo;
+        var turn = 1;
+        var itemOne;
+        var matches = 0;
+        var misses = 0;
+
+        function init(){
+            for(var i =0;i<12;i++){
+            randomizeLocation();
+
+            }
+            document.write("<table>");
+            document.write("<tr>");
+                document.write("<td>");
+                    var img = document.getElementById("11");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("12");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("13");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+            document.write("</tr>");
+
+            document.write("<tr>");
+                document.write("<td>");
+                    var img = document.getElementById("21");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("22");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("23");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+            document.write("</tr>");
+
+            document.write("<tr>");
+                                document.write("<td>");
+                    var img = document.getElementById("31");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("32");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("33");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+            document.write("</tr>");
+
+                        document.write("<tr>");
+                                document.write("<td>");
+                    var img = document.getElementById("41");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("42");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+
+                document.write("<td>");
+                    var img = document.getElementById("43");
+                    document.write(img.outerHTML);
+
+                document.write("</td>");
+            document.write("</tr>");
+            document.write("</table>");
+        }
+
+        function randomizeLocation(){
+                var rand = Math.floor(Math.random() * 12);
+                var swapIndex = Math.floor(Math.random() * 12);
+                var swap = words[rand];
+                words[rand] = words[swapIndex];
+                words[swapIndex] = swap;
+        }
+        function onClick(item){
+            var imgId = item.id;
+            var index = -1;
+            for(var i = 0; i < 4; i++){
+                for(var j = 0; j < 3; j++){
+                    var row = i +1;
+                    var col = j+1;
+                    var test = (row.toString()).concat(col.toString());
+                    console.log(test);
+                    console.log("imgID " + imgId);
+                    index++;
+                    if(imgId == test){
+                              if(words[index] == "Apple"){
+                                item.src = 'apple.jpeg';
+                              }else if(words[index] == "Orange"){
+                                item.src = 'orange.jpeg';
+                              }else if(words[index] == "Pear"){
+                                item.src = 'pear.jpeg';
+                              }else if(words[index] == "Grapes"){
+                                 item.src = 'grapes.jpeg';
+                               }else if(words[index] == "Yam"){
+                                 item.src = 'yams.jpeg';
+                              }else if(words[index] == "Carrot"){
+                                item.src = 'carrot.jpeg';
+                              }
+
+                              if(turn == 1){
+                                checkOne = words[index];
+                                itemOne = item;
+                                turn = 2;
+                              }else if(turn == 2){
+
+                                    checkTwo = words[index];
+                                    turn = 1;
+                                    if(checkOne != checkTwo || item == itemOne){
+                                       if(item != itemOne){
+                                            var missesObj = document.getElementById("misses");
+                                            misses++;
+                                            missesObj.innerHTML = misses;
+                                        }
+
+                                        setTimeout(function() {
+                                        item.src = 'download.jpeg';
+                                        itemOne.src = 'download.jpeg';
+                                        },1000);
+                                    }else{
+                                        var matchesObj = document.getElementById("matches");
+                                        matches++;
+                                        matchesObj.innerHTML = matches;
+                                        if(matches == 6){
+                                            setTimeout(function(){
+                                                if(matches >= misses){
+                                                    alert("You win!!!");
+                                                }else{
+                                                    alert("You Lose :(");
+                                                }
+                                                },500);
+                                        }
+                                    }
+                              }
+                    }
+                }
+            }
+        }
+        window.onLoad = init();
+
+
+    </script>
+
+
+</body>
+</html>
